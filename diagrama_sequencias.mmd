@@ -1,0 +1,19 @@
+sequenceDiagram
+    actor U as :Usuario
+    participant F as :Frontend
+    participant A as :API
+    participant B as :Banco
+
+    U->>F: Digita palavra-chave e aciona a busca
+    F->>A: GET /perguntas?busca=palavra-chave
+    A->>B: SELECT perguntas WHERE titulo/conteudo LIKE termo
+    
+    alt Resultados encontrados
+        B-->>A: Retorna registros correspondentes
+        A-->>F: HTTP 200 OK (Array de Perguntas)
+        F-->>U: Exibe lista de perguntas filtradas na tela
+    else Nenhum resultado
+        B-->>A: Retorna resultado vazio
+        A-->>F: HTTP 200 OK (Array Vazio)
+        F-->>U: Exibe mensagem "Sua pesquisa não corresponde a nenhum tópico"
+    end

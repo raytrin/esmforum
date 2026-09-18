@@ -1,0 +1,38 @@
+
+classDiagram
+class Pergunta {
+        +int id
+        +String titulo
+        +String conteudo
+        +DateTime data_criacao
+        +int upvotes
+        +int downvotes
+        +int id_autor
+    }
+
+    class Usuario {
+        +int id
+        +String username
+        +String email
+        +String senha
+        +String foto_perfil
+    }
+
+    class Resposta {
+        +int id
+        +String conteudo
+        +DateTime data_criacao
+        +int id_pergunta
+        +int id_autor
+    }
+    
+    class Categoria {
+        +int id
+        +String nome
+        +String descricao
+    }
+
+    Usuario "1" -- "0..*" Pergunta : faz
+    Usuario "1" -- "0..*" Resposta : escreve
+    Pergunta "1" -- "0..*" Resposta : possui
+    Pergunta "1..*" -- "1..*" Categoria : classificada em

@@ -1,0 +1,8 @@
+stateDiagram-v2
+    [*] --> Rascunho : Iniciar nova pergunta
+    Rascunho --> Aberta : Publicar pergunta
+    Aberta --> Respondida : Receber primeira resposta
+    Respondida --> Respondida : Receber novas respostas
+    Aberta --> Fechada : Autor ou Admin encerra o tópico
+    Respondida --> Fechada : Autor ou Admin encerra o tópico
+    Fechada --> [*]

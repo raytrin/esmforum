@@ -1,0 +1,11 @@
+flowchart TD
+    Inicio((Início)) --> Digitar[Digitar palavra-chave na barra de busca]
+    Digitar --> Submeter[Submeter pesquisa]
+    Submeter --> Processar[Sistema processa a consulta]
+    Processar --> Decisao{Encontrou<br>resultados?}
+    
+    Decisao -- Sim --> ExibirLista[Exibir lista de perguntas filtradas]
+    Decisao -- Não --> ExibirMensagem[Exibir mensagem de 'Nenhum tópico encontrado']
+    
+    ExibirLista --> Fim((Fim))
+    ExibirMensagem --> Fim
