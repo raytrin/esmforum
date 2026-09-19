@@ -1,6 +1,13 @@
 const express = require('express')
 const modelo = require('./modelo.js');
 
+const bd = require('./bd/bd_utils.js');
+const VotacaoRepository = require('./src/votacao.repository.js');
+const VotacaoService = require('./src/votacao.service.js');
+
+const votacaoRepo = new VotacaoRepository(bd);
+const votacaoService = new VotacaoService(votacaoRepo);
+
 const app = express()
 app.use(express.json());
 
@@ -55,6 +62,19 @@ app.post('/respostas', (req, res) => {
   }
   catch(erro) {
     res.status(500).json(erro.message); 
+  } 
+});
+
+app.post('/perguntas/:id_pergunta/votar', (req, res) => {
+  try {
+    const id_pergunta = req.params.id_pergunta;
+    const tipo_voto = req.body.tipo;
+    
+    votacaoService.registrarVoto(id_pergunta, tipo_voto);
+    res.json({ mensagem: "Voto registrado com sucesso!" });
+  }
+  catch(erro) {
+    res.status(400).json({ erro: erro.message }); 
   } 
 });
 
